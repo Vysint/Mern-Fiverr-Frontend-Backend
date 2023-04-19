@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
+const userRoutes = require("./routes/user.route");
+
 const app = express();
 dotenv.config();
 
@@ -13,6 +15,9 @@ const connect = async () => {
     throw err;
   }
 };
+
+app.use("/api/users", userRoutes);
+
 
 app.listen(process.env.PORT, () => {
   connect();
