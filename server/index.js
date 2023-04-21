@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 const userRoute = require("./routes/userRoute");
 const gigRoute = require("./routes/gigRoute");
@@ -14,6 +15,7 @@ const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const connect = async () => {
   try {
@@ -25,7 +27,7 @@ const connect = async () => {
 };
 
 app.use("/api/auth", authRoute);
-// app.use("/api/users", userRoute);
+app.use("/api/users", userRoute);
 // app.use("/api/gigs", gigRoute);
 // app.use("/api/orders", orderRoute);
 // app.use("/api/conversations", conversationRoute);
