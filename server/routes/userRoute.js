@@ -1,9 +1,8 @@
 const express = require("express");
+const { deleteUser } = require("../controllers/userController");
 
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.send("It works");
-});
+router.delete("/:id", deleteUser);
 
 module.exports = router;
