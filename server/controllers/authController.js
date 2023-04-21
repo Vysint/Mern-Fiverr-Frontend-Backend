@@ -1,5 +1,7 @@
-const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const User = require("../models/user.model");
 
 exports.register = async (req, res) => {
   try {
@@ -29,9 +31,16 @@ exports.login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Wrong password!" });
     }
+    const token = jwt.sign(
+      {
+        id: user._id,
+        isSeller: user.isSeller,
+      },
+      process.env.JWT_KEY
+    );
 
     const { password, ...info } = user._doc;
-    res.status(200).json(info);
+    res.cookie("accessToken", token, { httpOnly: true }).status(200).json(info);
   } catch (err) {
     res.status(500).json({ message: "Something went wrong!" });
   }
