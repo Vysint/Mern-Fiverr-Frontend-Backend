@@ -2,8 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.model");
+const { createError } = require("../utils/createError");
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
   try {
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -15,22 +16,20 @@ exports.register = async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: "User created!", user: newUser });
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong!" });
+    next(err);
   }
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found!" });
-    }
 
-    const isPasswordCorrect = bcrypt.compare(req.body.password, user.password);
+    if (!user) return next(createError(404, "User not found!"));
 
-    if (!isPasswordCorrect) {
-      return res.status(400).json({ message: "Wrong password!" });
-    }
+    const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
+    if (!isPasswordValid)
+      return next(createError(400, "Wrong password!"));
+
     const token = jwt.sign(
       {
         id: user._id,
@@ -40,8 +39,13 @@ exports.login = async (req, res) => {
     );
 
     const { password, ...info } = user._doc;
-    res.cookie("accessToken", token, { httpOnly: true }).status(200).json(info);
+    res
+      .cookie("accessToken", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .send(info);
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong!" });
+    next(err);
   }
 };
