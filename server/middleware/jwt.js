@@ -10,5 +10,6 @@ exports.verifyToken = (req, res, next) => {
 
     req.userId = payload.id;
     req.isSeller = payload.isSeller;
+    next();
   });
 };

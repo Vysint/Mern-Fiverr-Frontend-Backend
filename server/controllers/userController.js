@@ -1,10 +1,12 @@
 const User = require("../models/user.model");
 
-exports.deleteUser = async (req, res) => {
+const { createError } = require("../utils/createError");
+
+exports.deleteUser = async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (req.userId !== user._id.toString()) {
-    return res.status(403).send("You can delete only your account!");
+    return next(createError(403, "You can delete only your account!"));
   }
   await User.findByIdAndDelete(req.params.id);
   res.status(200).send("Account deleted!");
