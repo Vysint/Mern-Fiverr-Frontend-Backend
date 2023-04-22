@@ -26,9 +26,11 @@ exports.login = async (req, res, next) => {
 
     if (!user) return next(createError(404, "User not found!"));
 
-    const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
-    if (!isPasswordValid)
-      return next(createError(400, "Wrong password!"));
+    const isPasswordValid = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!isPasswordValid) return next(createError(400, "Wrong password!"));
 
     const token = jwt.sign(
       {
@@ -48,4 +50,14 @@ exports.login = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+exports.logout = async (req, res) => {
+  res
+    .clearCookie("accessToken", {
+      sameSite: "none",
+      secure: true,
+    })
+    .status(200)
+    .send("User has been logged out!");
 };
