@@ -9,9 +9,11 @@ import MyGigs from "./pages/myGigs/Mygigs";
 import Add from "./pages/add/Add";
 import Messages from "./pages/messages/Messages";
 import Message from "./pages/message/Message";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-import './App.scss'
+import "./App.scss";
 
 function App() {
   const LayOut = () => {
@@ -60,6 +62,14 @@ function App() {
         {
           path: "/message/:id",
           element: <Message />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
         },
       ],
     },
