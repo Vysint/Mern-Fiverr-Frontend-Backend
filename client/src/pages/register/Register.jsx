@@ -16,6 +16,7 @@ const Register = () => {
     isSeller: "",
     desc: "",
   });
+  console.log(user)
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -38,7 +39,7 @@ const Register = () => {
       console.log(err);
     }
   };
-  const handleSeller = () => {
+  const handleSeller = (e) => {
     setUser((prev) => {
       return { ...prev, isSeller: e.target.checked };
     });
