@@ -12,17 +12,25 @@ import Message from "./pages/message/Message";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 
 import "./App.scss";
 
 function App() {
+  const queryClient = new QueryClient();
   const LayOut = () => {
     return (
       <>
-        <Navbar />
-        <Outlet />
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Outlet />
 
-        <Footer />
+          <Footer />
+        </QueryClientProvider>
       </>
     );
   };
