@@ -53,7 +53,7 @@ exports.getGigs = async (req, res, next) => {
   };
 
   try {
-    const gigs = await Gig.find(filters);
+    const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
     if (!gigs) return next(createError(404, "No Gigs Found!"));
     res.status(200).json(gigs);
   } catch (err) {
