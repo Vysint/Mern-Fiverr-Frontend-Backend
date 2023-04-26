@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user.model");
-const { createError } = require("../utils/createError");
+const createError = require("../utils/createError");
 
 exports.register = async (req, res, next) => {
   try {
@@ -26,9 +26,12 @@ exports.login = async (req, res, next) => {
 
     if (!user) return next(createError(404, "User not found!"));
 
-    const isPasswordValid = bcrypt.compareSync(req.body.password, user.password);
+    const isPasswordValid = bcrypt.compareSync(
+      req.body.password,
+      user.password
+    );
     if (!isPasswordValid)
-      return next(createError(400, "Wrong password or username!"));
+      return next(createError(404, "Wrong password or username!"));
 
     const token = jwt.sign(
       {
