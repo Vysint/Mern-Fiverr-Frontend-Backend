@@ -16,7 +16,6 @@ const Register = () => {
     isSeller: "",
     desc: "",
   });
-  console.log(user)
 
   const navigate = useNavigate();
   const handleChange = (e) => {
