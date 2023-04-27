@@ -21,6 +21,7 @@ const MyGigs = () => {
           )}
         </div>
         <table>
+          <tbody>
           <tr>
             <th>Image</th>
             <th>Title</th>
@@ -42,7 +43,7 @@ const MyGigs = () => {
             </td>
             <td>13</td>
             <td>
-              <img className="delete" src="./img/delete.png" alt="" />
+              <img className="delete" src="/delete.png" alt="" />
             </td>
           </tr>
           <tr>
@@ -59,7 +60,7 @@ const MyGigs = () => {
             </td>
             <td>41</td>
             <td>
-              <img className="delete" src="./img/delete.png" alt="" />
+              <img className="delete" src="/delete.png" alt="" />
             </td>
           </tr>
           <tr>
@@ -76,7 +77,7 @@ const MyGigs = () => {
             </td>
             <td>55</td>
             <td>
-              <img className="delete" src="./img/delete.png" alt="" />
+              <img className="delete" src="/delete.png" alt="" />
             </td>
           </tr>
           <tr>
@@ -93,7 +94,7 @@ const MyGigs = () => {
             </td>
             <td>29</td>
             <td>
-              <img className="delete" src="./img/delete.png" alt="" />
+              <img className="delete" src="/delete.png" alt="" />
             </td>
           </tr>
           <tr>
@@ -110,7 +111,7 @@ const MyGigs = () => {
             </td>
             <td>34</td>
             <td>
-              <img className="delete" src="./img/delete.png" alt="" />
+              <img className="delete" src="/delete.png" alt="" />
             </td>
           </tr>
           <tr>
@@ -127,9 +128,10 @@ const MyGigs = () => {
             </td>
             <td>16</td>
             <td>
-              <img className="delete" src="./img/delete.png" alt="" />
+              <img className="delete" src="/delete.png" alt="" />
             </td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>
