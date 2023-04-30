@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import "./Review.scss";
 const Review = ({ review }) => {
