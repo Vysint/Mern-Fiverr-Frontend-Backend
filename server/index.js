@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const userRoute = require("./routes/userRoute");
 const gigRoute = require("./routes/gigRoute");
-const orderRoutes = require("./routes/orderRoute");
+const orderRoute = require("./routes/orderRoute");
 const conversationRoute = require("./routes/conversationRoute");
 const messageRoute = require("./routes/messageRoute");
 const reviewRoute = require("./routes/reviewRoute");
@@ -31,7 +31,7 @@ const connect = async () => {
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
-// app.use("/api/orders", orderRoute);
+app.use("/api/orders", orderRoute);
 // app.use("/api/conversations", conversationRoute);
 // app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
