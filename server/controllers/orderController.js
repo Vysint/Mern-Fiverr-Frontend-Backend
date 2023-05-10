@@ -19,10 +19,20 @@ exports.createOrder = async (req, res, next) => {
 
     await newOrder.save();
 
-    res.status(200).send("Successful")
+    res.status(200).send("Successful");
   } catch (err) {
     next(err);
   }
 };
 
-exports.getOrders = async (req, res, next) => {};
+exports.getOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.find({
+      ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
+      isCompleted: true,
+    });
+    res.status(200).send(orders);
+  } catch (err) {
+    next(err);
+  }
+};
