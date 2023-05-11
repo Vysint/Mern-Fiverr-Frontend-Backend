@@ -44,7 +44,11 @@ exports.updateConversation = async (req, res, next) => {
       {
         id: req.params.id,
       },
-      { $set: { readBySeller: req.isSeller, readByBuyer: !req.isSeller } },
+      {
+        $set: {
+          ...(req.isSeller ? { readBySeller: true } : { readByBuyer: true }),
+        },
+      },
       { new: true }
     );
     res.status(200).send(updatedConversation);
