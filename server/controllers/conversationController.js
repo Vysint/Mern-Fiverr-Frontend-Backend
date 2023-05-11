@@ -1,5 +1,5 @@
 const Conversation = require("../models/conversation.model");
-const { createError } = require("../utils/createError");
+const createError = require("../utils/createError");
 
 exports.getConversations = async (req, res, next) => {
   try {
