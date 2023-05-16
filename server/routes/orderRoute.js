@@ -10,6 +10,6 @@ router.post("/:gigId", verifyToken, createOrder);
 
 router.get("/", verifyToken, getOrders);
 
-router.post("/create-payyment-intent", verifyToken, intent)
+router.post("/create-payyment-intent/:id", verifyToken, intent)
 
 module.exports = router;
