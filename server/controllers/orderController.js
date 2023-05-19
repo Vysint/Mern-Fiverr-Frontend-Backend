@@ -4,17 +4,6 @@ const createError = require("../utils/createError");
 const Order = require("../models/order.model");
 const Gig = require("../models/gig.model");
 
-exports.getOrders = async (req, res, next) => {
-  try {
-    const orders = await Order.find({
-      ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
-      isCompleted: true,
-    });
-    res.status(200).send(orders);
-  } catch (err) {
-    next(err);
-  }
-};
 exports.intent = async (req, res, next) => {
   const stripe = new Stripe(process.env.STRIPE);
 
@@ -40,5 +29,17 @@ exports.intent = async (req, res, next) => {
 
   await newOrder.save();
 
-  res.status(200).send({ clientSecret: paymentIntent.clientSecret });
+  res.status(200).send({ clientSecret: paymentIntent.client_secret});
+};
+
+exports.getOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.find({
+      ...(req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }),
+      isCompleted: true,
+    });
+    res.status(200).send(orders);
+  } catch (err) {
+    next(err);
+  }
 };
