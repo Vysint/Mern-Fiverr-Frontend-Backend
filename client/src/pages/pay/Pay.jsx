@@ -21,6 +21,7 @@ const Pay = () => {
         const res = await newRequest.post(
           `/orders/create-payment-intent/${id}`
         );
+
         setClientSecret(res.data.clientSecret);
       } catch (err) {
         console.log(err);
@@ -39,7 +40,7 @@ const Pay = () => {
 
   return (
     <div className="pay">
-      {clientSecret && (
+      {clientSecret && stripePromise && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
