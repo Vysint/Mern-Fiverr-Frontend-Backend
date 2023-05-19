@@ -29,7 +29,7 @@ exports.intent = async (req, res, next) => {
 
   await newOrder.save();
 
-  res.status(200).send({ clientSecret: paymentIntent.client_secret});
+  res.status(200).send({ clientSecret: paymentIntent.client_secret });
 };
 
 exports.getOrders = async (req, res, next) => {
@@ -39,6 +39,24 @@ exports.getOrders = async (req, res, next) => {
       isCompleted: true,
     });
     res.status(200).send(orders);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.confirm = async (req, res, next) => {
+  try {
+    const orders = await Order.findOneAndUpdate(
+      {
+        payment_intent: req.body.payment_intent,
+      },
+      {
+        $set: {
+          isCompleted: true,
+        },
+      }
+    );
+    res.status(200).send("Order has been confirmed!");
   } catch (err) {
     next(err);
   }
