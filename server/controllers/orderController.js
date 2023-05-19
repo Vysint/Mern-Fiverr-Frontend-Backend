@@ -24,7 +24,7 @@ exports.intent = async (req, res, next) => {
     amount: gig.price * 100,
     currency: "usd",
     automatic_payment_methods: {
-      emabled: true,
+      enabled: true,
     },
   });
 
@@ -40,5 +40,5 @@ exports.intent = async (req, res, next) => {
 
   await newOrder.save();
 
-  res.status(200).send({ clientSecret: paymentIntent.client_secret });
+  res.status(200).send({ clientSecret: paymentIntent.clientSecret });
 };
