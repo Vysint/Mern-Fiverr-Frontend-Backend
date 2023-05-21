@@ -85,7 +85,7 @@ const CheckoutForm = () => {
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <span disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : <button>Pay Now</button>}
+          {isLoading ? <div className="spinner" id="spinner"></div> : <button id="button">Pay Now</button>}
         </span>
       </span>
       {/* Show any error or success messages */}
